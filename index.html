@@ -337,6 +337,15 @@
     color: #fff; cursor: pointer; z-index: 6;
     box-shadow: 0 3px 0 #2a0840;
   }
+ #langBtn {
+    position: absolute; top: 50px; left: 6px;
+    background: linear-gradient(#4aa0ff, #2060a0);
+    border: 2px solid #7ee0ff; border-radius: 12px;
+    padding: 6px 10px; font-size: 12px; font-weight: bold;
+    color: #fff; cursor: pointer; z-index: 6;
+    box-shadow: 0 3px 0 #103060;
+  }
+  #langBtn:active { transform: translateY(2px); }
 </style>
 </head>
 <body>
@@ -359,7 +368,8 @@
     <div class="label" id="demonHpLabel">👹 鬼</div>
   </div>
   <div id="comboDisplay"></div>
-  <button id="shareBtn" class="hidden" onclick="shareResult()">📤 シェア</button>
+ <button id="langBtn" onclick="toggleLang()">🌐 JP</button> 
+ <button id="shareBtn" class="hidden" onclick="shareResult()">📤 シェア</button>
   <button id="musicBtn" class="hidden" onclick="toggleMusic()">🔊</button>
   <div id="sideButtons" class="hidden">
     <button class="side-btn demon" onclick="openDemons()">👹 鬼</button>
@@ -468,6 +478,16 @@
   <div id="toast"></div>
 </div>
 <script>
+// ЛОГИКА ЯЗЫКОВ
+const LANGS = ['jp', 'ru', 'en'];
+let currentLang = localStorage.getItem('fuji_lang') || 'jp';
+function toggleLang() {
+  const idx = LANGS.indexOf(currentLang);
+  currentLang = LANGS[(idx + 1) % LANGS.length];
+  localStorage.setItem('fuji_lang', currentLang);
+  document.getElementById('langBtn').textContent = '🌐 ' + currentLang.toUpperCase();
+  showToast('🌐 ' + currentLang.toUpperCase());
+} 
 window.addEventListener('resize', () => {
   canvas.width = Math.min(window.innerWidth, 500);
   canvas.height = Math.min(window.innerHeight, 500);
