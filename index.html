@@ -468,7 +468,16 @@
   <div id="toast"></div>
 </div>
 <script>
-// ============================================
+window.addEventListener('resize', () => {
+  canvas.width = Math.min(window.innerWidth, 500);
+  canvas.height = Math.min(window.innerHeight, 500);
+});
+window.addEventListener('orientationchange', () => {
+  setTimeout(() => {
+    canvas.width = Math.min(window.innerWidth, 500);
+    canvas.height = Math.min(window.innerHeight, 500);
+  }, 200);
+});// ============================================
 // МУЗЫКА
 // ============================================
 let musicCtx = null;
