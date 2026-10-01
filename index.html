@@ -496,7 +496,22 @@ function toggleLang() {
 }
 function updateTexts() {
   const t = TEXTS[currentLang];
-  // Обновляем дни и демонов — на будущее
+  const flag = { jp: '🇯🇵', ru: '🇷🇺', en: '🇬🇧' };
+  // Кнопки меню
+  const labels = {
+    jp: { demon: '👹 鬼', daily: '📅 日課', gacha: '🎰 引', album: '🎴 図鑑', ach: '🏆 実績', train: '🥋 道場', event: '🎋 祭', auto: '🤖 自動' },
+    ru: { demon: '👹 Демоны', daily: '📅 Ежедневка', gacha: '🎰 Гача', album: '🎴 Альбом', ach: '🏆 Награды', train: '🥋 Тренировка', event: '🎋 Ивенты', auto: '🤖 Авто' },
+    en: { demon: '👹 Demons', daily: '📅 Daily', gacha: '🎰 Gacha', album: '🎴 Album', ach: '🏆 Awards', train: '🥋 Training', event: '🎋 Events', auto: '🤖 Auto' }
+  }[currentLang];
+  const btns = document.querySelectorAll('.side-btn');
+  if (btns[0]) btns[0].textContent = labels.demon;
+  if (btns[1]) btns[1].textContent = labels.daily;
+  if (btns[2]) btns[2].textContent = labels.gacha;
+  if (btns[3]) btns[3].textContent = labels.album;
+  if (btns[4]) btns[4].textContent = labels.ach;
+  if (btns[5]) btns[5].textContent = labels.train;
+  if (btns[6]) btns[6].textContent = labels.event;
+  if (btns[7]) btns[7].textContent = labels.auto;
   console.log('🌐', currentLang.toUpperCase(), t.days.join(','));
 }
 window.addEventListener('resize', () => {
