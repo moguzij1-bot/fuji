@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", viewport-fit=cover>
+<meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", viewport-fit=cover>
 <title>富士ストライク — 曜日の鬼</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
@@ -514,16 +513,17 @@ function updateTexts() {
   if (btns[7]) btns[7].textContent = labels.auto;
   console.log('🌐', currentLang.toUpperCase(), t.days.join(','));
 }
-window.addEventListener('resize', () => {
-  canvas.width = Math.min(window.innerWidth, 500);
-  canvas.height = Math.min(window.innerHeight, 500);
-});
-window.addEventListener('orientationchange', () => {
-  setTimeout(() => {
-    canvas.width = Math.min(window.innerWidth, 500);
-    canvas.height = Math.min(window.innerHeight, 500);
-  }, 200);
-});// ============================================
+function resizeCanvas() {
+  const size = Math.min(window.innerWidth, window.innerHeight - 150, 500);
+  canvas.width = size;
+  canvas.height = size;
+  const rect = canvas.getBoundingClientRect();
+  const scale = Math.min(rect.width / size, rect.height / size);
+  ctx.setTransform(scale, 0, 0, scale, 0, 0);
+}
+window.addEventListener('resize', resizeCanvas);
+window.addEventListener('orientationchange', () => setTimeout(resizeCanvas, 300));
+resizeCanvas();
 // МУЗЫКА
 // ============================================
 let musicCtx = null;
