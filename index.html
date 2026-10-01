@@ -481,13 +481,24 @@
 // ЛОГИКА ЯЗЫКОВ
 const LANGS = ['jp', 'ru', 'en'];
 let currentLang = localStorage.getItem('fuji_lang') || 'jp';
+const TEXTS = {
+  jp: { days: ['月','火','水','木','金','土','日'], demons: ['月曜鬼','火曜鬼','水曜蛇','木曜頭','金曜鬼','土曜龍','日曜大魔王'] },
+  ru: { days: ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'], demons: ['Гэцуёби-Они','Каёби-Они','Суйёби-Хэби','Мокуёби-Гасира','Кинъёби-Они','Дойёби-Рю','Нитиёби-Даймао'] },
+  en: { days: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], demons: ['Getsuyobi-Oni','Kayobi-Oni','Suiyobi-Hebi','Mokuyobi-Gashira','Kinyobi-Oni','Doyobi-Ryu','Nichiyobi-Daimao'] }
+};
 function toggleLang() {
   const idx = LANGS.indexOf(currentLang);
   currentLang = LANGS[(idx + 1) % LANGS.length];
   localStorage.setItem('fuji_lang', currentLang);
   document.getElementById('langBtn').textContent = '🌐 ' + currentLang.toUpperCase();
   showToast('🌐 ' + currentLang.toUpperCase());
-} 
+  updateTexts();
+}
+function updateTexts() {
+  const t = TEXTS[currentLang];
+  // Обновляем дни и демонов — на будущее
+  console.log('🌐', currentLang.toUpperCase(), t.days.join(','));
+}
 window.addEventListener('resize', () => {
   canvas.width = Math.min(window.innerWidth, 500);
   canvas.height = Math.min(window.innerHeight, 500);
