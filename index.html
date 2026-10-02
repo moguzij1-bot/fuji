@@ -790,10 +790,7 @@ function resetLevel(n) {
   state.hp = Math.min(state.maxHp, state.hp + 20);
   player.x = 150;
   player.vx = 0;
-  const li = document.getElementById('level-info');
-  document.getElementById('level-info');
-  li.classList.add('show');
-  setTimeout(() => { li.classList.remove('show'); }, 3000);
+  document.getElementById('level-info').textContent = cfg.name;
   updateHUD();
 }
 function updateHUD() {
