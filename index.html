@@ -513,17 +513,6 @@ function updateTexts() {
   if (btns[7]) btns[7].textContent = labels.auto;
   console.log('🌐', currentLang.toUpperCase(), t.days.join(','));
 }
-function resizeCanvas() {
-  const size = Math.min(window.innerWidth, window.innerHeight - 150, 500);
-  canvas.width = size;
-  canvas.height = size;
-  const rect = canvas.getBoundingClientRect();
-  const scale = Math.min(rect.width / size, rect.height / size);
-  ctx.setTransform(scale, 0, 0, scale, 0, 0);
-}
-window.addEventListener('resize', resizeCanvas);
-window.addEventListener('orientationchange', () => setTimeout(resizeCanvas, 300));
-resizeCanvas();
 // МУЗЫКА
 // ============================================
 let musicCtx = null;
