@@ -338,6 +338,17 @@
     color: #fff; cursor: pointer; z-index: 6;
     box-shadow: 0 3px 0 #2a0840;
   }
+ #level-info {
+    position: absolute; bottom: 6px; left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.7);
+    border: 2px solid #d4a017; border-radius: 12px;
+    padding: 5px 16px; font-size: 12px; font-weight: bold;
+    color: #ffd966; text-shadow: 1px 1px 0 #000;
+    z-index: 5; pointer-events: none;
+    opacity: 0; transition: opacity 1s;
+  }
+  #level-info.show { opacity: 1; }
 </style>
 </head>
 <body>
@@ -780,10 +791,12 @@ function resetLevel(n) {
   state.hp = Math.min(state.maxHp, state.hp + 20);
   player.x = 150;
   player.vx = 0;
-  document.getElementById('level-info').textContent = cfg.name;
+  const li = document.getElementById('level-info');
+  li.textContent = cfg.name;
+  li.classList.add('show');
+  setTimeout(() => { li.classList.remove('show'); }, 3000);
   updateHUD();
 }
-
 function updateHUD() {
   document.getElementById('hp').textContent = Math.max(0, Math.round(state.hp));
   document.getElementById('kills').textContent = state.kills;
