@@ -353,9 +353,7 @@
 </head>
 <body>
 <div id="game">
-  <canvas id="canvas" width="500" height="500"></canvas><canvas id="canvas" width="500" height="500"></canvas>
-<div id="level-info">レベル 1</div>
-  <div id="topBar">
+  <canvas id="canvas" width="500" height="500"></canvas>
     <div id="stats">
       <span>💗 <span id="hp">100</span></span>
       <span>⚔️ <span id="kills">0</span>/<span id="maxKills">6</span></span>
@@ -793,7 +791,7 @@ function resetLevel(n) {
   player.x = 150;
   player.vx = 0;
   const li = document.getElementById('level-info');
-  li.textContent = cfg.name;
+  document.getElementById('level-info').textContent = cfg.name;
   li.classList.add('show');
   setTimeout(() => { li.classList.remove('show'); }, 3000);
   updateHUD();
