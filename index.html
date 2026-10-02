@@ -1640,7 +1640,7 @@ function shareResult() {
   const text = `富士ストライクで${state.kills}体の鬼を倒した！ ${url}`;
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text).then(() => {
-      showToast('📋 リンクをコピーしました！');
+      showToast('リンクをコピーしました！');
     }).catch(() => {
       showToast('📤 シェア: ' + url);
     });
