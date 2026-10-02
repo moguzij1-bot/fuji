@@ -791,7 +791,7 @@ function resetLevel(n) {
   player.x = 150;
   player.vx = 0;
   const li = document.getElementById('level-info');
-  document.getElementById('level-info').textContent = cfg.name;
+  document.getElementById('level-info');
   li.classList.add('show');
   setTimeout(() => { li.classList.remove('show'); }, 3000);
   updateHUD();
