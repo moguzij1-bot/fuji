@@ -1636,16 +1636,11 @@ function openQuiz() {
 }
 
 function shareResult() {
-  const url = 'https://moguzij1-bot.github.io/fuji/';
-  const text = `富士ストライクで${state.kills}体の鬼を倒した！ ${url}`;
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(text).then(() => {
-      showToast('リンクをコピーしました！');
-    }).catch(() => {
-      showToast('📤 シェア: ' + url);
-    });
+  const text = `富士ストライクで${state.kills}体の鬼を倒した！ #富士ストライク`;
+  if (navigator.share) {
+    navigator.share({ title: '富士ストライク', text }).catch(() => {});
   } else {
-    showToast('📤 シェア: ' + url);
+    showToast('📤 シェアしました！');
   }
   state.coins += 100;
   updateHUD();
