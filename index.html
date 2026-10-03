@@ -1095,8 +1095,8 @@ function drawBackground() {
  // Трава
   ctx.strokeStyle = '#5aa82a';
   ctx.lineWidth = 2;
-  for (let i = 0; i < 80; i++) {
-    const gx = i * 6 + Math.sin(animTime * 0.02 + i) * 3;
+  for (let i = 0; i < 120; i++) {
+    const gx = i * 4 + Math.sin(animTime * 0.02 + i) * 3;
     const gh = 15 + Math.sin(i * 1.5) * 8;
     ctx.beginPath();
     ctx.moveTo(gx, GROUND_Y + 10);
@@ -1104,8 +1104,8 @@ function drawBackground() {
     ctx.stroke();
   }
   // Цветы сакуры
-  for (let i = 0; i < 40; i++) {
-    const fx = i * 12 + 20;
+  for (let i = 0; i < 60 i++) {
+    const fx = i * 8 + 20;
     const fy = GROUND_Y + 20;
     ctx.fillStyle = '#ff9ec7';
     ctx.beginPath();
