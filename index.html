@@ -36,12 +36,14 @@
     font-weight: bold; color: #ffd966;
   }
   .currency.gem { border-color: #7ee0ff; color: #7ee0ff; }
-  .currency.energy { border-color: #ff6ba6; color: #ff6ba6; }
-  #sideButtons {
-    position: absolute; right: 6px; top: 48px;
-    display: flex; flex-direction: column; gap: 3px; z-index: 6;
-    max-height: calc(100% - 130px); overflow-y: auto;
-  }
+  .currency.energy { border-color: #ff6ba6; }
+ #sideButtons {
+  position: absolute; top: 62%;
+  left: 50%; transform: translateX(-50%);
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 6px; z-index: 6;
+  width: 95%; max-width: 460px;
+}                   
   .side-btn {
     background: linear-gradient(#d4a017, #a06010);
     border: 2px solid #ffd966; border-radius: 10px;
