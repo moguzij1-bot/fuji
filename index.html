@@ -799,7 +799,7 @@ function updateHUD() {
 function playerAttack() {
   if (player.cooldown > 0) return;
   player.attackTimer = 14;
-  player.cooldown = 12;
+  player.cooldown = 10;
   sSlash();
   const baseDmg = 20;
   const range = 80;
