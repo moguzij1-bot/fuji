@@ -1648,12 +1648,7 @@ function openQuiz() {
       }
       setTimeout(() => {
   closeOverlay('quizOverlay');
-  startGame();
-  document.getElementById('sideButtons').classList.remove('hidden');
-  document.getElementById('touchControls').classList.add('visible');
-  document.getElementById('level-info').classList.remove('hidden');
-  document.getElementById('shareBtn').classList.remove('hidden');
-  document.getElementById('musicBtn').classList.remove('hidden');
+  document.getElementById('startOverlay').classList.remove('hidden');
 }, 1500);
     el.appendChild(div);
   });
