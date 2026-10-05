@@ -1458,21 +1458,37 @@ function checkDailyLogin() {
 function checkLoginGift() {
   const today = new Date().toDateString();
   if (state.loginGiftDate === today) return;
-  const gift = 100 + state.streak * 50;
-  document.getElementById('loginGiftText').textContent = `+${gift} 🪙 +${5 + state.streak} 💎`;
+  const now = new Date();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  let isHoliday = false;
+  let holidayName = '';
+  if (month === 10 && day === 31) { isHoliday = true; holidayName = '🎃 ハロウィン'; }
+  let gift = 100 + state.streak * 50;
+  let gems = 5 + state.streak;
+  let title = '🎁 ログインボーナス';
+  if (isHoliday) {
+    gift = 500 + state.streak * 100;
+    gems = 30 + state.streak * 5;
+    title = '🎉 ' + holidayName + ' 特別ボーナス';
+  }
+  document.getElementById('giftTitle').textContent = title;
+  document.getElementById('loginGiftText').textContent = `+${gift} 🪙 +${gems} 💎`;
   document.getElementById('loginGiftOverlay').classList.remove('hidden');
   state.pendingGift = gift;
+  state.pendingGems = gems;
 }
 
 function claimLoginGift() {
   const gift = state.pendingGift || 100;
+  const gems = state.pendingGems || 5;
   state.coins += gift;
-  state.gems += 5 + state.streak;
+  state.gems += gems;
   state.loginGiftDate = new Date().toDateString();
   updateHUD();
   saveProgress();
   closeOverlay('loginGiftOverlay');
-  showToast(`🎁 +${gift} 🪙`);
+  showToast(`🎁 +${gift} 🪙 +${gems} 💎`);
 }
 
 function openDaily() {
