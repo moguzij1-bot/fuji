@@ -1457,13 +1457,13 @@ function checkDailyLogin() {
 
 function checkLoginGift() {
   const today = new Date().toDateString();
-  //if (state.loginGiftDate === today) return;
+  if (state.loginGiftDate === today) return;
   const now = new Date();
   const month = now.getMonth() + 1;
   const day = now.getDate();
   let isHoliday = false;
   let holidayName = '';
-  if (month === 10 && day === 5) { isHoliday = true; holidayName = '🎃 ハロウィン'; }
+  if (month === 10 && day === 6) { isHoliday = true; holidayName = '🎃 ハロウィン'; }
   let gift = 100 + state.streak * 50;
   let gems = 5 + state.streak;
   let title = '🎁 ログインボーナス';
