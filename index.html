@@ -393,7 +393,7 @@
     <p>富士山の麓に、曜日の鬼たちが現れた。<br>毎日ログインして、七人の鬼を打ち倒せ！</p>
     <button class="btn" onclick="startGame()">▶ 開始</button>
     <button class="btn green" onclick="startGame(true)">⚡ クイック</button>
-    
+    <button class="btn pink" onclick="openQuizFromStart()">🎯 今日のクイズ</button>
   </div>
   <div id="gachaOverlay" class="overlay hidden">
     <h1>🎰 引</h1>
@@ -1463,7 +1463,7 @@ function checkLoginGift() {
   const day = now.getDate();
   let isHoliday = false;
   let holidayName = '';
-  if (month === 9 && day === 6) { isHoliday = true; holidayName = '🎃 ハロウィン'; }
+  if (month === 10 && day === 31) { isHoliday = true; holidayName = '🎃 ハロウィン'; }
   let gift = 100 + state.streak * 50;
   let gems = 5 + state.streak;
   let title = '🎁 ログインボーナス';
@@ -1646,10 +1646,11 @@ function openQuiz() {
         sWrong();
         showToast('❌ 不正解…');
       }
-    setTimeout(() => closeOverlay('quizOverlay'), 1500);
+      setTimeout(() => closeOverlay('quizOverlay'), 1500);
+    };
     el.appendChild(div);
   });
- 
+  document.getElementById('quizOverlay').classList.remove('hidden');
 }
 
 function shareResult() {
