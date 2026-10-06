@@ -1646,10 +1646,7 @@ function openQuiz() {
         sWrong();
         showToast('❌ 不正解…');
       }
-      setTimeout(() => {
-  closeOverlay('quizOverlay');
-  document.getElementById('startOverlay').classList.remove('hidden');
-}, 1500);
+    setTimeout(() => closeOverlay('quizOverlay'), 1500);
     el.appendChild(div);
   });
  
