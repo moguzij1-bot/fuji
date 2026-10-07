@@ -325,7 +325,7 @@
     100% { transform: translateX(-50%) scale(1); }
   }
   #shareBtn {
-    position: absolute; top: 45px; left: 6px;
+    position: absolute; top: 90px; left: 6px;
     background: linear-gradient(#27ae60, #1a6030);
     border: 2px solid #6bff9e; border-radius: 12px;
     padding: 6px 10px; font-size: 11px; font-weight: bold;
@@ -333,7 +333,7 @@
     box-shadow: 0 3px 0 #0a3018;
   }
   #musicBtn {
-    position: absolute; top: 45px; right: 6px;
+    position: absolute; top: 130px; left: 6px;
     background: linear-gradient(#8e44ad, #4a1060);
     border: 2px solid #ff6bff; border-radius: 12px;
     padding: 6px 10px; font-size: 14px; font-weight: bold;
@@ -1458,37 +1458,21 @@ function checkDailyLogin() {
 function checkLoginGift() {
   const today = new Date().toDateString();
   if (state.loginGiftDate === today) return;
-  const now = new Date();
-  const month = now.getMonth() + 1;
-  const day = now.getDate();
-  let isHoliday = false;
-  let holidayName = '';
-  if (month === 10 && day === 31) { isHoliday = true; holidayName = '🎃 ハロウィン'; }
-  let gift = 100 + state.streak * 50;
-  let gems = 5 + state.streak;
-  let title = '🎁 ログインボーナス';
-  if (isHoliday) {
-    gift = 500 + state.streak * 100;
-    gems = 30 + state.streak * 5;
-    title = '🎉 ' + holidayName + ' 特別ボーナス';
-  }
-  document.getElementById('giftTitle').textContent = title;
-  document.getElementById('loginGiftText').textContent = `+${gift} 🪙 +${gems} 💎`;
+  const gift = 100 + state.streak * 50;
+  document.getElementById('loginGiftText').textContent = `+${gift} 🪙 +${5 + state.streak} 💎`;
   document.getElementById('loginGiftOverlay').classList.remove('hidden');
   state.pendingGift = gift;
-  state.pendingGems = gems;
 }
 
 function claimLoginGift() {
   const gift = state.pendingGift || 100;
-  const gems = state.pendingGems || 5;
   state.coins += gift;
-  state.gems += gems;
+  state.gems += 5 + state.streak;
   state.loginGiftDate = new Date().toDateString();
   updateHUD();
   saveProgress();
   closeOverlay('loginGiftOverlay');
-  showToast(`🎁 +${gift} 🪙 +${gems} 💎`);
+  showToast(`🎁 +${gift} 🪙`);
 }
 
 function openDaily() {
