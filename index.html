@@ -393,7 +393,7 @@
     <p>富士山の麓に、曜日の鬼たちが現れた。<br>毎日ログインして、七人の鬼を打ち倒せ！</p>
     <button class="btn" onclick="startGame()">▶ 開始</button>
     <button class="btn green" onclick="startGame(true)">⚡ クイック</button>
-    
+    <button class="btn pink" onclick="openQuizFromStart()">🎯 今日のクイズ</button>
   </div>
   <div id="gachaOverlay" class="overlay hidden">
     <h1>🎰 引</h1>
@@ -799,7 +799,7 @@ function updateHUD() {
 function playerAttack() {
   if (player.cooldown > 0) return;
   player.attackTimer = 14;
-  player.cooldown = 8;
+  player.cooldown = 10;
   sSlash();
   const baseDmg = 20;
   const range = 80;
@@ -1318,34 +1318,8 @@ function levelUp() {
   sWin();
   const ov = document.getElementById('levelOverlay');
   ov.classList.remove('hidden');
-  
-  const now = new Date();
-  const month = now.getMonth() + 1;
-  const day = now.getDate();
-  let isHoliday = false;
-  let holidayName = '';
-  
-  if (month === 10 && day === 31) { isHoliday = true; holidayName = '🎃 ハロウィン'; }
-  
-  let rewardText = `<p style="color:#ffe0f0;font-size:12px;">🎁 次のレベルへ</p>`;
-  
-  if (isHoliday) {
-    let gift = 0;
-    let gems = 0;
-    if (level === 1) { gift = 500; gems = 5000; }
-    else if (level === 2) { gift = 1000; gems = 10000; }
-    else { gift = 2000; gems = 20000; }
-    
-    state.coins += gift;
-    state.gems += gems;
-    updateHUD();
-    saveProgress();
-    rewardText = `<p style="color:#ffd966;font-size:14px;">🎉 ${holidayName}<br>🎁 +${gift} 🪙 +${gems} 💎</p>`;
-  }
-  
   ov.innerHTML = `
     <h1>レベル ${level} クリア</h1>
-    ${rewardText}
     <button class="btn" onclick="nextLevel()">次へ</button>
   `;
 }
