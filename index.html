@@ -1458,10 +1458,36 @@ function checkDailyLogin() {
 function checkLoginGift() {
   const today = new Date().toDateString();
   if (state.loginGiftDate === today) return;
-  const gift = 100 + state.streak * 50;
-  document.getElementById('loginGiftText').textContent = `+${gift} 🪙 +${5 + state.streak} 💎`;
+  const now = new Date();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  let isHoliday = false;
+  let holidayName = '';
+  
+  if (month === 10 && day === 31) { isHoliday = true; holidayName = '🎃 ハロウィン'; }
+  if (month === 11 && day === 23) { isHoliday = true; holidayName = '🍁 勤労感謝'; }
+  if (month === 1 && day >= 1 && day <= 3) { isHoliday = true; holidayName = '🎍 正月'; }
+  if (month === 2 && day === 3) { isHoliday = true; holidayName = '👹 節分'; }
+  if (month === 3 && day === 3) { isHoliday = true; holidayName = '🌸 雛祭り'; }
+  if (month === 4 && day === 8) { isHoliday = true; holidayName = '🌸 花祭り'; }
+  if (month === 7 && day === 7) { isHoliday = true; holidayName = '⭐ 七夕'; }
+  if (month === 8 && day >= 13 && day <= 16) { isHoliday = true; holidayName = '🏮 お盆'; }
+  
+  let gift = 100 + state.streak * 50;
+  let gems = 5 + state.streak;
+  let title = '🎁 ログインボーナス';
+  
+  if (isHoliday) {
+    gift = 278 + state.streak * 50;
+    gems = 18 + state.streak * 3;
+    title = '🎉 ' + holidayName + ' 特別ボーナス';
+  }
+  
+  document.getElementById('giftTitle').textContent = title;
+  document.getElementById('loginGiftText').textContent = `+${gift} 🪙 +${gems} 💎`;
   document.getElementById('loginGiftOverlay').classList.remove('hidden');
   state.pendingGift = gift;
+  state.pendingGems = gems;
 }
 
 function claimLoginGift() {
