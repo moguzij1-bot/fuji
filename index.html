@@ -1226,45 +1226,37 @@ function drawEnemy(e) {
   ctx.fill();
 
   const flash = e.hitFlash>0;
-  const c1 = e.rare ? '#ffd966' : (flash?'#fff':(e.id==='monday'?'#3a7bd5':'#c0392b'));
+  const img = e.id ? demonImages[e.id] : null;
 
-  ctx.fillStyle = c1;
-  ctx.beginPath();
-  ctx.arc(cx, baseY, 26, 0, Math.PI*2);
-  ctx.fill();
-  ctx.fillStyle = flash?'#fff':(e.rare?'#ffed80':'#e67e22');
-  ctx.beginPath();
-  ctx.ellipse(cx, baseY+10, 18, 10, 0, 0, Math.PI*2);
-  ctx.fill();
-
-  ctx.fillStyle = '#fff';
-  ctx.beginPath();
-  ctx.moveTo(cx-12, baseY-18);
-  ctx.lineTo(cx-18, baseY-32);
-  ctx.lineTo(cx-5, baseY-20);
-  ctx.closePath();
-  ctx.moveTo(cx+12, baseY-18);
-  ctx.lineTo(cx+18, baseY-32);
-  ctx.lineTo(cx+5, baseY-20);
-  ctx.closePath();
-  ctx.fill();
-  ctx.fillStyle = '#ffd966';
-  ctx.beginPath();
-  ctx.arc(cx-18, baseY-32, 3, 0, Math.PI*2);
-  ctx.arc(cx+18, baseY-32, 3, 0, Math.PI*2);
-  ctx.fill();
-
-  const eyeY = baseY - 4;
-  ctx.fillStyle = '#fff';
-  ctx.beginPath();
-  ctx.arc(cx-8, eyeY, 6, 0, Math.PI*2);
-  ctx.arc(cx+8, eyeY, 6, 0, Math.PI*2);
-  ctx.fill();
-  ctx.fillStyle = '#000';
-  ctx.beginPath();
-  ctx.arc(cx-8+Math.sign(e.vx), eyeY, 3.5, 0, Math.PI*2);
-  ctx.arc(cx+8+Math.sign(e.vx), eyeY, 3.5, 0, Math.PI*2);
-  ctx.fill();
+  if (img && img.complete && img.naturalWidth > 0) {
+    const size = 70;
+    if (flash) ctx.globalAlpha = 0.6;
+    if (e.vx > 0) {
+      ctx.save();
+      ctx.translate(cx + size/2, baseY - size/2);
+      ctx.scale(-1, 1);
+      ctx.drawImage(img, 0, 0, size, size);
+      ctx.restore();
+    } else {
+      ctx.drawImage(img, cx - size/2, baseY - size/2, size, size);
+    }
+    ctx.globalAlpha = 1;
+  } else {
+    const c1 = e.rare ? '#ffd966' : (flash?'#fff':(e.id==='monday'?'#3a7bd5':'#c0392b'));
+    ctx.fillStyle = c1;
+    ctx.beginPath();
+    ctx.arc(cx, baseY, 26, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = flash?'#fff':(e.rare?'#ffed80':'#e67e22');
+    ctx.beginPath();
+    ctx.ellipse(cx, baseY+10, 18, 10, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.moveTo(cx-12, baseY-18); ctx.lineTo(cx-18, baseY-32); ctx.lineTo(cx-5, baseY-20); ctx.closePath();
+    ctx.moveTo(cx+12, baseY-18); ctx.lineTo(cx+18, baseY-32); ctx.lineTo(cx+5, baseY-20); ctx.closePath();
+    ctx.fill();
+  }
 
   const hpW = 40;
   ctx.fillStyle = '#000';
