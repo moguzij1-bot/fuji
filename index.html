@@ -1451,6 +1451,15 @@ function checkDailyLogin() {
   state.lastLoginDate = today;
   state.morningClaimed = false;
   state.eveningClaimed = false;
+  
+  // Сброс демонов в понедельник
+  const now = new Date();
+  const dayOfWeek = now.getDay();
+  if (dayOfWeek === 1) {
+    state.demonDefeated = {};
+    console.log('🔄 Демоны сброшены (понедельник)');
+  }
+  
   updateHUD();
   saveProgress();
 }
