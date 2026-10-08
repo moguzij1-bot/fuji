@@ -652,6 +652,16 @@ let state = {
   combo: 0, maxCombo: 0,
   specialCharge: 0
 };
+ // ============================================
+// КАРТИНКИ ДЕМОНОВ
+// ============================================
+const demonImages = {};
+const DEMON_FILES = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday','samurai'];
+DEMON_FILES.forEach(name => {
+  const img = new Image();
+  img.src = name + '.png';
+  demonImages[name] = img;
+});
 
 // ============================================
 // ДЕМОНЫ
