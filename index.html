@@ -1495,7 +1495,7 @@ function checkLoginGift() {
     title = '🎉 ' + holidayName + ' 特別ボーナス';
   }
   
-  document.getElementById('giftTitle').textContent = title;
+  //document.getElementById('giftTitle').textContent = title;
   document.getElementById('loginGiftText').textContent = `+${gift} 🪙 +${gems} 💎`;
   document.getElementById('loginGiftOverlay').classList.remove('hidden');
   state.pendingGift = gift;
