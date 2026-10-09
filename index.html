@@ -1608,6 +1608,24 @@ function startTraining() {
   showToast('🥋 道場モード');
 }
 
+function stopTraining() {
+  trainingMode = false;
+  enemies = [];
+  state.hp = state.maxHp;
+  state.kills = 0;
+  gameState = 'menu';
+  document.getElementById('startOverlay').classList.remove('hidden');
+  document.getElementById('sideButtons').classList.add('hidden');
+  document.getElementById('touchControls').classList.remove('visible');
+  document.getElementById('level-info').classList.add('hidden');
+  document.getElementById('shareBtn').classList.add('hidden');
+  document.getElementById('musicBtn').classList.add('hidden');
+  document.getElementById('demonHpBar').classList.add('hidden');
+  stopMusic();
+  updateHUD();
+  showToast('🥋 練習終了');
+}
+ 
 function openEvent() {
   const now = new Date();
   const month = now.getMonth() + 1;
