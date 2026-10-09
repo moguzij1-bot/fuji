@@ -904,13 +904,15 @@ function spawnEnemy() {
   const side = Math.random()<0.5?-1:1;
   const x = side===1?W+20:-50;
   const isRare = Math.random() < 0.01;
+  const randomDemon = DEMONS[Math.floor(Math.random()*DEMONS.length)];
   enemies.push({
     x, y:GROUND_Y-60, w:44, h:60,
     hp: isRare ? cfg.hp*3 : cfg.hp,
     maxHp: isRare ? cfg.hp*3 : cfg.hp,
     vx:side*-cfg.speed*(0.8+Math.random()*0.5),
     dmg:cfg.dmg, attackTimer:0, hitFlash:0, dead:false,
-    bobPhase:Math.random()*Math.PI*2, rare:isRare
+    bobPhase:Math.random()*Math.PI*2, rare:isRare,
+    id: randomDemon.id
   });
 }
 
