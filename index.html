@@ -1133,97 +1133,65 @@ function drawSamurai(x, y) {
   const cx = x + player.w/2;
   const baseY = y + bob;
 
+  // Тень
   ctx.fillStyle = 'rgba(0,0,0,0.4)';
   ctx.beginPath();
   ctx.ellipse(cx, GROUND_Y+5, 26, 7, 0, 0, Math.PI*2);
   ctx.fill();
 
-  ctx.fillStyle = player.hitFlash>0?'#fff':'#2c4a80';
-  ctx.beginPath();
-  ctx.moveTo(cx-18, baseY+50);
-  ctx.lineTo(cx+18, baseY+50);
-  ctx.lineTo(cx+22, baseY+72);
-  ctx.lineTo(cx-22, baseY+72);
-  ctx.closePath();
-  ctx.fill();
+  // Картинка самурая
+  const img = demonImages.samurai;
+  if (img && img.complete && img.naturalWidth > 0) {
+    const size = 90;
+    const ratio = img.naturalHeight / img.naturalWidth;
+    const drawW = size;
+    const drawH = size * ratio;
+    if (player.hitFlash > 0) ctx.globalAlpha = 0.5;
+    if (facing === -1) {
+      ctx.save();
+      ctx.translate(cx, baseY);
+      ctx.scale(-1, 1);
+      ctx.drawImage(img, -drawW/2, -drawH/2, drawW, drawH);
+      ctx.restore();
+    } else {
+      ctx.drawImage(img, cx - drawW/2, baseY - drawH/2, drawW, drawH);
+    }
+    ctx.globalAlpha = 1;
+  } else {
+    // Фолбэк: если картинка не загружена — старый самурай
+    ctx.fillStyle = '#2c4a80';
+    ctx.beginPath();
+    ctx.arc(cx, baseY, 30, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = '#ffdcc0';
+    ctx.beginPath();
+    ctx.arc(cx, baseY-10, 22, 0, Math.PI*2);
+    ctx.fill();
+  }
 
-  ctx.fillStyle = '#d4a017';
-  ctx.fillRect(cx-20, baseY+58, 40, 6);
+  // Эффект блока (щит)
+  if (player.blockTimer>0) {
+    ctx.strokeStyle = 'rgba(126,224,255,0.9)';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.arc(cx, baseY+20, 50, 0, Math.PI*2);
+    ctx.stroke();
+  }
 
-  const headY = baseY + 22;
-  const headR = 24;
-  ctx.fillStyle = player.hitFlash>0?'#fff':'#ffdcc0';
-  ctx.beginPath();
-  ctx.arc(cx, headY, headR, 0, Math.PI*2);
-  ctx.fill();
-
-  ctx.fillStyle = '#0a0a1a';
-  ctx.beginPath();
-  ctx.arc(cx, headY-4, headR, Math.PI, 0);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.moveTo(cx-headR, headY-4);
-  ctx.lineTo(cx-12, headY+4);
-  ctx.lineTo(cx-4, headY-6);
-  ctx.lineTo(cx+4, headY+4);
-  ctx.lineTo(cx+12, headY-6);
-  ctx.lineTo(cx+headR, headY-4);
-  ctx.lineTo(cx+headR, headY-10);
-  ctx.lineTo(cx-headR, headY-10);
-  ctx.closePath();
-  ctx.fill();
-
-  const eyeY = headY + 4;
-  const eyeOff = 9;
-  ctx.fillStyle = '#fff';
-  ctx.beginPath();
-  ctx.arc(cx-eyeOff, eyeY, 6, 0, Math.PI*2);
-  ctx.arc(cx+eyeOff, eyeY, 6, 0, Math.PI*2);
-  ctx.fill();
-  ctx.fillStyle = '#4a90e2';
-  ctx.beginPath();
-  ctx.arc(cx-eyeOff+facing, eyeY, 4, 0, Math.PI*2);
-  ctx.arc(cx+eyeOff+facing, eyeY, 4, 0, Math.PI*2);
-  ctx.fill();
-  ctx.fillStyle = '#000';
-  ctx.beginPath();
-  ctx.arc(cx-eyeOff+facing, eyeY, 2.5, 0, Math.PI*2);
-  ctx.arc(cx+eyeOff+facing, eyeY, 2.5, 0, Math.PI*2);
-  ctx.fill();
-
-  ctx.fillStyle = 'rgba(255,150,180,0.5)';
-  ctx.beginPath();
-  ctx.ellipse(cx-16, eyeY+7, 4, 2.5, 0, 0, Math.PI*2);
-  ctx.ellipse(cx+16, eyeY+7, 4, 2.5, 0, 0, Math.PI*2);
-  ctx.fill();
-
-  const swordX = facing===1?cx+20:cx-20;
+  // Взмах меча поверх картинки
   if (player.attackTimer>0) {
     const progress = 1 - player.attackTimer/14;
     ctx.save();
-    ctx.translate(cx, baseY+55);
+    ctx.translate(cx, baseY+20);
     ctx.rotate(facing * (progress*Math.PI - Math.PI/2));
     ctx.strokeStyle = 'rgba(255,255,255,0.9)';
     ctx.lineWidth = 5;
     ctx.lineCap = 'round';
     ctx.beginPath();
-    ctx.moveTo(0,0);
+    ctx.moveTo(0, 0);
     ctx.lineTo(facing*60, -5);
     ctx.stroke();
     ctx.restore();
-  } else {
-    ctx.fillStyle = '#c0c0d0';
-    ctx.fillRect(swordX, baseY+40, 5*facing, 40);
-    ctx.fillStyle = '#d4a017';
-    ctx.fillRect(swordX - (facing===1?0:5), baseY+35, 5, 8);
-  }
-
-  if (player.blockTimer>0) {
-   ctx.strokeStyle = 'rgba(126,224,255,0.9)';
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.arc(cx, baseY+45, 50, 0, Math.PI*2);
-    ctx.stroke();
   }
 }
 
