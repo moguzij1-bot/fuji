@@ -1400,7 +1400,7 @@ function openDemons() {
     div.innerHTML = `
       ${isToday?'<div class="today-badge">今日</div>':''}
       ${defeated?'<div class="defeated-badge">✓</div>':''}
-      <div class="demon-emoji">${d.emoji}</div>
+      <img src="${d.img}" style="width:64px;height:64px;object-fit:contain;" onerror="this.style.display='none'">
       <div class="demon-name-jp">${d.nameJp}</div>
       <div class="demon-day">${d.dayName}</div>
       <div class="demon-desc">${d.desc}</div>
