@@ -1147,7 +1147,7 @@ function drawSamurai(x, y) {
     const drawW = size;
     const drawH = size * ratio;
     if (player.hitFlash > 0) ctx.globalAlpha = 0.5;
-    if (facing === -1) {
+    if (facing === 1) {
       ctx.save();
       ctx.translate(cx, baseY);
       ctx.scale(-1, 1);
