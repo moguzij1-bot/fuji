@@ -1493,7 +1493,8 @@ function openDaily() {
   div.className = 'streak-day';
   if (i < state.streak) div.classList.add('claimed');
   if (i === todayIndex) div.classList.add('today');
-  div.innerHTML = `<div class="day-emoji">${emojis[i]}</div><div>${days[i]}</div>`;
+   if (i === todayIndex) div.classList.remove('claimed');
+     div.innerHTML = `<div class="day-emoji">${emojis[i]}</div><div>${days[i]}</div>`;
   bar.appendChild(div);
 }
   document.getElementById('morningSlot').className = 'time-slot' + (state.morningClaimed?' claimed':'');
