@@ -1487,13 +1487,17 @@ function openDaily() {
  bar.innerHTML = '';
   const days = ['月','火','水','木','金','土','日'];
   const emojis = ['💙','🔴','🐍','💀','🔥','🐉','👑'];
-  for (let i=0;i<7;i++) {
-    const div = document.createElement('div');
-    div.className = 'streak-day';
-    if (i < state.streak) div.classList.add('claimed');
-    if (i === state.streak-1) div.classList.add('today');
-    div.innerHTML = `<div class="day-emoji">${emojis[i]}</div><div>${days[i]}</div>`;
-    bar.appendChild(div);
+  const today = new Date().getDay();  // 0 = воскресенье, 1 = понедельник...
+// Переводим: воскресенье (0) → индекс 6, понедельник (1) → индекс 0
+const todayIndex = today === 0 ? 6 : today - 1;
+
+for (let i=0;i<7;i++) {
+  const div = document.createElement('div');
+  div.className = 'streak-day';
+  if (i < state.streak) div.classList.add('claimed');
+  if (i === todayIndex) div.classList.add('today');
+  div.innerHTML = `<div class="day-emoji">${emojis[i]}</div><div>${days[i]}</div>`;
+  bar.appendChild(div);
   }
   document.getElementById('morningSlot').className = 'time-slot' + (state.morningClaimed?' claimed':'');
   document.getElementById('eveningSlot').className = 'time-slot' + (state.eveningClaimed?' claimed':'');
