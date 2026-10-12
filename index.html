@@ -1487,9 +1487,9 @@ function openDaily() {
  bar.innerHTML = '';
   const days = ['月','火','水','木','金','土','日'];
   const emojis = ['💙','🔴','🐍','💀','🔥','🐉','👑'];
-  const today = new Date().getDay();  // 0 = воскресенье, 1 = понедельник...
-// Переводим: воскресенье (0) → индекс 6, понедельник (1) → индекс 0
-const todayIndex = today === 0 ? 6 : today  1;
+  const today = new Date().getDay();   0 = воскресенье, 1 = понедельник...
+ Переводим: воскресенье (0) → индекс 6, понедельник (1) → индекс 0
+const todayIndex = today === 0 ? 6 : today  -1;
 
 for (let i=0;i<7;i++) {
   const div = document.createElement('div');
